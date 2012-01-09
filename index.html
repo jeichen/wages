@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <script src="libs/ajax/libs/jquery/1.4.3/jquery.min.js" type="text/javascript"></script>
+   <script src="libs/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>   
+   
+   
+   <script type="text/javascript">
+     $(document).ready(function() {
+
+	   $("#job_title").load('backend.php', { ajax: 'true', function: 'get_job_names' });
+ 
+       $("#calculate").click(load_output);
+ 	                      
+       //start search on return keystroke 
+       $('#years').keyup(function(e) {
+ 	     if(e.keyCode == 13) {
+ 	       load_output();
+         }	   
+       });
+       
+       function load_output () {
+         $('#output').load('backend.php', { ajax: true, function: 'get_salery', 
+           jid: $('#job_title option:selected').val(), years: $('#years').val() 
+         });
+       }
+       
+     });
+   </script>
+ </head>
+ <body>  
+   Job Title: <div id="job_title"/> </div>
+   Number of Years <input id="years"/><div>
+   <input id="calculate" type="button" value="Calculate"/>
+   <div id="output"></div>          
+   </body>
+</html>
+
+
